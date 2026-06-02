@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yang Fang</title>
+  <link rel="icon" href="images/lucky.png" type="image/png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:          #fefcfb;
+      --surface:     #f6f4f2;
+      --text:        #1a0e08;
+      --muted:       #8a6e5c;
+      --g900:        #312015;
+      --g700:        #5b3a25;
+      --g500:        #9e6138;
+      --g400:        #c88051;
+      --g200:        #d9b49b;
+      --g100:        #e8d9cf;
+      --g50:         #f4efec;
+      --border:      #e7dfda;
+      --max:         980px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Decorative blob ─── */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -120px;
+      right: -80px;
+      width: 480px;
+      height: 480px;
+      background: radial-gradient(circle, rgba(200,128,81,.12) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ─── Header ─── */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(254,255,254,.85);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .h-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .h-name {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: 1.05rem;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -.01em;
+    }
+
+    nav { display: flex; gap: 28px; }
+
+    nav a {
+      font-size: .83rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    nav a:hover { color: var(--g700); }
+
+    /* ─── Layout ─── */
+    main {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 0 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ─── Hero ─── */
+    .hero { padding: 84px 0 64px; }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 240px;
+      gap: 36px;
+      align-items: center;
+    }
+
+    .hero-photo {
+      width: 100%;
+      max-width: 240px;
+      margin-left: auto;
+      border-radius: 24px;
+      overflow: hidden;
+      background: var(--g100);
+      box-shadow: 0 28px 72px rgba(23, 44, 34, 0.08);
+    }
+
+    .hero-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      aspect-ratio: 3 / 4;
+    }
+
+    .hero-sup {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .75rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--g500);
+      margin-bottom: 18px;
+    }
+    .hero-sup::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--g400);
+      border-radius: 2px;
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: clamp(2.8rem, 7vw, 4.4rem);
+      font-weight: 400;
+      line-height: 1.08;
+      letter-spacing: -.035em;
+      color: var(--text);
+      margin-bottom: 22px;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--g700);
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      max-width: 620px;
+      line-height: 1.75;
+      margin-bottom: 40px;
+    }
+
+    .hero-links { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 15px;
+      border-radius: 100px;
+      border: 1.5px solid var(--border);
+      font-size: .81rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      background: var(--bg);
+      transition: border-color .2s, color .2s, background .2s;
+    }
+    .pill:hover {
+      border-color: var(--g400);
+      color: var(--g700);
+      background: var(--g50);
+    }
+    .pill svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+    /* ─── Section ─── */
+    section {
+      padding: 60px 0;
+    }
+
+    .s-label {
+      font-size: 1rem;
+      font-weight: 1000;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: var(--g500);
+      margin-bottom: 28px;
+    }
+
+    /* ─── About ─── */
+    .about-body {
+      font-size: 1.02rem;
+      color: var(--muted);
+      line-height: 1.85;
+      max-width: 620px;
+    }
+    .about-body p + p { margin-top: 16px; }
+    .about-body strong { color: var(--text); font-weight: 500; }
+
+    /* ─── Projects ─── */
+    .proj-list { display: flex; flex-direction: column; }
+
+    .proj {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 32px;
+      padding: 34px 0;
+      border-bottom: 1px solid var(--border);
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      transition: background .15s;
+    }
+    .proj:first-child { border-top: 1px solid var(--border); }
+    .proj-list > .proj:last-child { border-bottom: none; }
+
+    /* green left accent on hover */
+    .proj::before {
+      content: '';
+      position: absolute;
+      left: -32px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--g400);
+      border-radius: 0 2px 2px 0;
+      transform: scaleY(0);
+      transition: transform .2s;
+      transform-origin: center;
+    }
+    .proj:hover::before { transform: scaleY(1); }
+    .proj:hover .proj-title { color: var(--g700); }
+
+    .proj-thumb {
+      width: 300px;
+      height: 200px;
+      border-radius: 14px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: transparent;
+    }
+    .proj-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .thumb-img { display: block; width: 100%; height: 100%; object-fit: contain; transition: transform .35s ease; }
+    .scale-100 { transform: scale(1.00); transform-origin: center; }
+    .scale-90 { transform: scale(0.90); transform-origin: center; }
+    .scale-110 { transform: scale(1.10); transform-origin: center; }
+    .scale-120 { transform: scale(1.20); transform-origin: center; }
+    .scale-130 { transform: scale(1.30); transform-origin: center; }
+
+    /* coloured placeholder gradients */
+    .t1 { background: linear-gradient(140deg, #d8f3dc 0%, #95d5b2 100%); }
+    .t2 { background: linear-gradient(140deg, #b7e4c7 0%, #52b788 100%); }
+    .t3 { background: linear-gradient(140deg, #52b788 0%, #2d6a4f 100%); }
+    .t4 { background: linear-gradient(140deg, #74c69d 0%, #40916c 100%); }
+    .t5 { background: linear-gradient(140deg, #95d5b2 0%, #1b4332 100%); }
+
+    .proj-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 7px;
+    }
+
+    .proj-meta { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+
+    .proj-date { font-size: .76rem; color: var(--muted); }
+
+    .proj-tag {
+      font-size: .69rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: var(--g100);
+      color: var(--g700);
+    }
+
+    .proj-title {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: 1.18rem;
+      font-weight: 400;
+      line-height: 1.3;
+      color: var(--text);
+      transition: color .2s;
+    }
+
+    .proj-desc {
+      font-size: .86rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .proj-award {
+      font-size: .76rem;
+      color: var(--g500);
+      font-weight: 500;
+    }
+
+    .proj-pdf {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 4px;
+      font-size: .76rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1px;
+      transition: color .2s, border-color .2s;
+    }
+    .proj-pdf:hover { color: var(--g700); border-color: var(--g400); }
+    .proj-pdf svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+    /* ─── Skills ─── */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+      gap: 28px 20px;
+    }
+
+    .skill-group h4 {
+      font-size: .8rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+    .tag {
+      font-size: .76rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+
+    .nowrap { white-space: nowrap; }
+
+    /* ─── Contact ─── */
+    .contact-text {
+      font-size: 1rem;
+      color: var(--muted);
+      margin-bottom: 20px;
+      max-width: 480px;
+    }
+
+    .contact-email {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: 1.55rem;
+      font-style: italic;
+      color: var(--g700);
+      text-decoration: none;
+      border-bottom: 2px solid var(--g200);
+      padding-bottom: 2px;
+      transition: border-color .2s;
+    }
+    .contact-email:hover { border-color: var(--g500); }
+
+    /* ─── Footer ─── */
+    footer {
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+    }
+
+    .f-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 28px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .f-copy { font-size: .78rem; color: var(--muted); }
+
+    .f-links { display: flex; gap: 20px; }
+
+    .f-links a {
+      font-size: .78rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .f-links a:hover { color: var(--g700); }
+
+    /* ─── Fade-in ─── */
+    @keyframes up {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero { animation: up .55s ease both; }
+    section { animation: up .55s ease both; }
+    section:nth-of-type(1) { animation-delay: .06s; }
+    section:nth-of-type(2) { animation-delay: .12s; }
+    section:nth-of-type(3) { animation-delay: .18s; }
+    section:nth-of-type(4) { animation-delay: .22s; }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 600px) {
+      .h-inner, main, .f-inner { padding-left: 20px; padding-right: 20px; }
+      .hero { padding: 52px 0 44px; }
+      .hero-grid { grid-template-columns: 1fr; }
+      .hero-photo { max-width: 100%; margin-left: 0; }
+      .proj { grid-template-columns: 1fr; }
+      .proj-thumb { width: 100%; height: 150px; }
+      .proj::before { display: none; }
+      .f-inner { flex-direction: column; gap: 10px; text-align: center; }
+      nav { gap: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── Header ─── -->
+<header>
+  <div class="h-inner">
+    <a href="#" class="h-name">Yang Fang</a>
+    <nav>
+      <a href="#work">Data Journalism</a>
+      <a href="#conference-papers">Conference Papers</a>
+      <a href="#other-works">Other Works</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ─── Main ─── -->
+<main>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-grid">
+      <div>
+        <p class="hero-sup">Portfolio</p>
+        <h1>Yang <em>Fang</em></h1>
+        <p class="hero-sub">
+          Question-led. Method-driven. <br>
+          Research Focus on computational communication, social science of AI & AI for social science, gender studies and data visualization.<br>
+          M.A. in <strong>Journalism & Communication at Fudan University</strong>.
+          <span class="nowrap">B.A. in <strong>Data Journalism at Communication University of China</strong>.</span>
+        </p>
+        <div class="hero-links">
+      <a href="mailto:24210130014@m.fudan.edu.cn" class="pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        Email
+      </a>
+      <a href="https://github.com/airrhead" class="pill" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+        GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/yang-fang-13843a339/" class="pill" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+  <div class="hero-photo">
+    <img src="images/1.png" alt="Yang Fang profile photo" />
+  </div>
+</div>
+
+  <!-- Work -->
+  <section id="work">
+    <p class="s-label">Data Journalism</p>
+    <div class="proj-list">
+
+      <a href="https://readymag.website/u592388364/211QZ/" class="proj" target="_blank" rel="noopener">
+        <div class="proj-thumb">
+          <img class="thumb-img scale-100" src="images/ivf.png" alt="Anxiety and Hope: Women's IVF Journeys cover" />
+        </div>
+        <div class="proj-body">
+          <div class="proj-meta">
+            <span class="proj-date">2022</span>
+            <span class="proj-tag">Data Collection</span><span class="proj-tag">Sentiment Analysis</span>
+          </div>
+          <h3 class="proj-title">Anxiety and Hope: Women's IVF Journeys Through Data and Stories</h3>
+          <p class="proj-desc">
+            Inside the IVF cycle, data meets lived experience. This project documents what women endure—physically and emotionally—while trying to become mothers, revealing both the anxiety that defines this journey and the hope, solidarity, and female strength that sustains it.</p>
+          <p class="proj-award">Longlisted for the 2022 China Data Content Annual Case Collection; Semi-finalist, 2022 China Data Journalism Competition.</p>
+        </div>
+      </a>
+
+      <a href="https://airrhead.github.io/Indie-Game/INDIEGAMEDEVELOPER/index.html" class="proj" target="_blank" rel="noopener">
+        <div class="proj-thumb">
+          <img class="thumb-img scale-100" src="images/indie.png" alt="Indie Dreams cover" />
+        </div>
+        <div class="proj-body">
+          <div class="proj-meta">
+            <span class="proj-date">2023</span>
+            <span class="proj-tag">Data Collection</span><span class="proj-tag">Simulator Design</span><span class="proj-tag">Web Development</span>
+          </div>
+            <h3 class="proj-title">Indie Dreams, Real Struggles: Inside Game Development Reality</h3>
+            <p class="proj-desc">
+              While China's indie game developers dream of the next breakthrough hit, most face brutal economic realities. This investigation uses data and storytelling to expose the gap between indie gaming ambitions and the financial struggles that define the scene—revealing who these creators are, how they fund their dreams, and why they persist anyway.</p>
+            <p class="proj-award">Excellence Award, 2023 China Data Journalism Competition.</p>
+        </div>
+      </a>
+
+      <a href="https://airrhead.github.io/retirement-delay/" class="proj" target="_blank" rel="noopener">
+        <div class="proj-thumb">
+          <img class="thumb-img scale-100" src="images/delay2.png" alt="Retirement Delayed cover" />
+        </div>
+        <div class="proj-body">
+          <div class="proj-meta">
+            <span class="proj-date">2024</span>
+            <span class="proj-tag">Data Collection</span><span class="proj-tag">Data Analysis</span><span class="proj-tag">Interactive Visualization</span><span class="proj-tag">Web Development</span>
+          </div>
+            <h3 class="proj-title">Retirement Delayed: A Deferred Farewell</h3>
+            <p class="proj-desc">
+              As China enters an era of accelerated population aging, delayed retirement has become more than a policy adjustment: it is a deeply personal question about work, aging, fairness, and security. Drawing on Weibo sentiment analysis, policy text analysis, questionnaires, interviews, and international pension data, this project explores how people respond to China's gradual retirement-age reform and what the policy reveals about the future of aging societies.
+            </p>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <section id="conference-papers">
+    <p class="s-label">Conference Papers</p>
+    <div class="proj-list">
+
+      <a href="#" class="proj">
+        <div class="proj-thumb">
+          <img class="thumb-img scale-100" src="images/paper1.png" alt="Gender conference paper cover" />
+        </div>
+        <div class="proj-body">
+          <div class="proj-meta">
+            <span class="proj-date">Jan – Feb 2023</span>
+            <span class="proj-tag">Independent Research</span>
+            <span class="proj-tag">IAMCR 2023</span>
+            <span class="proj-tag">Gender and Communication</span>
+          </div>
+          <h3 class="proj-title">What makes gender-based violence a (less) prominent issue? A dynamic analysis of network agenda setting based on the China Restaurant Assault</h3>
+          <p class="proj-desc">
+            A dual-source study of newspapers and Weibo that maps gender issue salience across media and public agendas. It shows how agenda-setting and partisan sorting combine to suppress gender-violence framing in China.
+          </p>
+          <p class="proj-award">
+            Accepted for IAMCR 2023 and presented in the Gender and Communication section.
+          </p>
+        </div>
+      </a>
+
+      <a href="#" class="proj">
+        <div class="proj-thumb">
+          <img class="thumb-img scale-100" src="images/paper22.jpeg" alt="Political depression conference paper cover" />
+        </div>
+        <div class="proj-body">
+          <div class="proj-meta">
+            <span class="proj-date">Oct 2025 – Nov 2025</span>
+            <span class="proj-tag">Independent Research</span>
+            <span class="proj-tag">ICA 2026</span>
+            <span class="proj-tag">Political Communication</span>
+          </div>
+          <h3 class="proj-title">Does my suffering have a name? A computational text analysis of Chinese political depression discourse on X</h3>
+          <p class="proj-desc">
+            A computational analysis of political depression in China using 2,979 tweets. It combines BERTopic, GPT-4 emotion classification, LIWC, and toxicity metrics to show political depression as a distinct affective infrastructure.
+          </p>
+          <p class="proj-award">
+            Accepted for ICA 2026 in the Political Communication division.
+          </p>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <section id="other-works">
+    <p class="s-label">Other Works</p>
+    <div class="proj-list">
+
+      <div class="proj">
+        <div class="proj-thumb">
+          <img class="thumb-img scale-100" src="images/report.png" alt="Market research report cover" />
+        </div>
+        <div class="proj-body">
+          <div class="proj-meta">
+            <span class="proj-date">Mar – May 2023</span>
+            <span class="proj-tag">Survey Design</span>
+            <span class="proj-tag">Statistical Analysis</span>
+            <span class="proj-tag">Market Research</span>
+          </div>
+          <h3 class="proj-title">Urban Consumer Behaviour and Trust in Traceable Agricultural Products</h3>
+          <p class="proj-desc">
+            Using three-stage stratified PPS sampling (N = 1,085), TwoStep cluster analysis, and an extended Technology Acceptance Model validated via SEM/AMOS (11 hypotheses, 9 confirmed), the study identifies four socioeconomically differentiated consumer segments and quantifies the drivers behind their adoption behaviour.
+          </p>
+          <p class="proj-award">National Second Prize, Chia Tai Cup National Market Research Competition.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+<!-- ─── Footer ─── -->
+<footer id="contact">
+  <div class="f-inner">
+    <span class="f-copy">© Yang Fang · 2026</span>
+    <div class="f-links">
+      <a href="mailto:24210130014@m.fudan.edu.cn" target="_blank" rel="noopener">24210130014@m.fudan.edu.cn</a>
+      <a href="https://github.com/airrhead" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://linkedin.com/in/yang-fang-com" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
